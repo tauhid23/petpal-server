@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: petpal-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: tauhid1234
+      POSTGRES_DB: petpal
+    ports:
+      - "5432:5432"
+
+
