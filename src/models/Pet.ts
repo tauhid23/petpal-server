@@ -1,8 +1,36 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/db";
-import User from "./User";
+import Schedule from "./Schedule";
 
-class Pet extends Model {}
+interface PetAttributes {
+  id: string;
+  ownerId?: string | null;
+  name: string;
+  species?: string;
+  breed?: string;
+  dob?: Date;
+  photos?: string[];
+  microchipId?: string;
+  emergencyContact?: string;
+}
+
+interface PetCreationAttributes extends Optional<PetAttributes, "id"> {}
+
+class Pet extends Model<PetAttributes, PetCreationAttributes> implements PetAttributes {
+  public id!: string;
+  public ownerId!: string | null;
+  public name!: string;
+  public species!: string;
+  public breed!: string;
+  public dob!: Date;
+  public photos!: string[];
+  public microchipId!: string;
+  public emergencyContact!: string;
+
+  // Timestamps
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
 
 Pet.init(
   {
@@ -14,40 +42,15 @@ Pet.init(
     dob: { type: DataTypes.DATE },
     photos: { type: DataTypes.ARRAY(DataTypes.STRING) },
     microchipId: { type: DataTypes.STRING },
-    schedule: { type: DataTypes.JSONB, defaultValue: [] },
     emergencyContact: { type: DataTypes.STRING },
   },
-  { sequelize, modelName: "Pet", tableName: "pets", timestamps: true }
+  {
+    sequelize,
+    modelName: "Pet",
+    tableName: "pets",
+    timestamps: true,
+  }
 );
 
-// Associations
-User.hasMany(Pet, { foreignKey: "ownerId" });
-Pet.belongsTo(User, { foreignKey: "ownerId" });
 
 export default Pet;
-
-
-
-
-// import mongoose from "mongoose";
-
-// const scheduleSchema = new mongoose.Schema({
-//   type: { type: String, enum: ["walk", "med", "grooming", "vet"], required: true },
-//   date: { type: Date, required: true },
-// });
-
-// const petSchema = new mongoose.Schema({
-//   ownerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-//   name: { type: String, required: true },
-//   species: String,
-//   breed: String,
-//   dob: Date,
-//   photos: [String],
-//   microchipId: String,
-//   schedule: [scheduleSchema],
-//   emergencyContact: String,
-// }, { timestamps: true });
-
-// export default mongoose.model("Pet", petSchema);
-
-

@@ -109,6 +109,7 @@ export const createPet = async (req: Request, res: Response) => {
     const pet = await Pet.create(req.body);
     res.status(201).json(pet);
   } catch (error) {
+    console.log(error)
     res.status(400).json({ message: "Failed to create pet", error });
   }
 };
