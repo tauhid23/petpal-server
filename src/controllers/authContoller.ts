@@ -83,7 +83,6 @@ export const login = async (req: Request<{}, {}, LoginBody>, res: Response) => {
       (process.env.JWT_EXPIRES_IN as SignOptions["expiresIn"]) || "1h";
 
     const token = jwt.sign(payload, secret, { expiresIn });
-    console.log(token)
     const userdata = {name:userJson.name, id:userJson.id}
     res.json({ message: "Login successful", token:token, user:userdata });
   } catch (error: any) {

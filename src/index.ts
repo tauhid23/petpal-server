@@ -6,6 +6,7 @@ import sequelize from "./config/db";
 import petRoutes from "./routes/petRoutes";
 import scheduleRoutes from './routes/scheduleRoutes'
 import authRoutes from './routes/authRoutes'
+import commentRoutes from "./routes/commentRoutes";
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,7 @@ app.use(morgan("dev"));
 app.use("/api/pets", petRoutes);
 app.use("/api/schedules",scheduleRoutes);
 app.use("/auth", authRoutes);
+app.use("/api/comments", commentRoutes);
 
 const PORT = process.env.PORT || 5000;
 
