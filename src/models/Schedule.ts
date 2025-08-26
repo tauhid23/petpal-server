@@ -6,7 +6,7 @@ import Pet from "./Pet";
 class Schedule extends Model {
   public id!: string;
   public petId!: string;
-  public type!: "vet" | "walk" | "meds" | string;
+  public type!: "vet" | "walk" | "meds" | "Feed" | string;
   public date!: Date;
 
   public readonly createdAt!: Date;
